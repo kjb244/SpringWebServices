@@ -1,7 +1,12 @@
 package main.java.com.spring.model;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class User {
 
+    @NotBlank (message = "first name can't be blank")
+    @Length(min = 3, max = 40, message = "min 3 max 40")
     private String firstName;
     private String lastName;
     private int age;
