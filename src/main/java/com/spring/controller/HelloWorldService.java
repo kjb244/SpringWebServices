@@ -23,6 +23,34 @@ public class HelloWorldService implements IRestController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value="/keyvalue", method = RequestMethod.POST)
+    public ResponseEntity getKeyValue(@RequestBody Map<String, Object> payload) {
+        for (Map.Entry<String, Object> entry : payload.entrySet()) {
+            Object val = entry.getValue();
+            System.out.println(entry.getKey());
+             if(val instanceof List) {
+                System.out.println("instance of list");
+             }
+             else if (val instanceof String){
+                 System.out.println("instance of string");
+             }
+             else if (val instanceof Integer){
+                 System.out.println("instance of integer");
+             }
+             else if (val instanceof HashMap) {
+                 System.out.println("instance of object")
+                 Map<String, Object> m = (Map<String, Object>) val;
+                 m.keySet().stream().forEach(r -> {
+                     System.out.println(r);
+                 });
+
+             }
+
+        }
+        payload.put("yup","here");
+        return new ResponseEntity(payload, HttpStatus.OK);
+    }
+
     //rest/customers
     @RequestMapping(value="/customers", method = RequestMethod.GET)
     public ResponseEntity getCustomer(){
